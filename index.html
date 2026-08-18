@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kie Hernandez — Web Designer / California</title>
+<meta name="description" content="カリフォルニア在住のWebデザイナー。LP・ブランド設計・広告動画・コーディングまで一貫して制作します。日本語・英語・スペイン語対応。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Kie Hernandez — Web Designer / California">
+<meta property="og:description" content="LP・ブランド・広告動画まで。日本語 / English / Español で制作します。">
+<meta property="og:image" content="assets/ogp.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F6F3; --surface:#fff; --ink:#1C1B19; --ink-2:#57534E; --ink-3:#8B857D;
+  --line:#E5E2DC; --accent:#C25E45;
+  --s2:16px; --s3:24px; --s4:40px; --s5:64px; --s6:96px; --s7:140px;
+  --wrap:1120px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:'Zen Kaku Gothic New','Inter',sans-serif;
+  line-height:1.9;font-size:15px;-webkit-font-smoothing:antialiased;}
+body.lang-en{font-family:'Inter','Zen Kaku Gothic New',sans-serif;}
+body.lang-jp .en{display:none!important;}
+body.lang-en .jp{display:none!important;}
+img{display:block;max-width:100%;}
+a{color:inherit;text-decoration:none;}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px;}
+
+.hdr{position:fixed;inset:0 0 auto 0;z-index:100;display:flex;align-items:center;justify-content:space-between;
+  padding:14px 24px;background:rgba(247,246,243,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+.hdr .nm{font-family:'Inter',sans-serif;font-weight:700;font-size:14px;letter-spacing:.02em;}
+.hdr nav{display:flex;align-items:center;gap:18px;}
+.hdr nav a{font-size:12.5px;font-weight:600;color:var(--ink-2);}
+.hdr nav a:hover{color:var(--ink);}
+.lang{display:flex;border:1px solid var(--ink);border-radius:999px;overflow:hidden;}
+.lang button{border:none;background:transparent;color:var(--ink);font-family:inherit;font-weight:600;
+  font-size:11px;padding:6px 13px;cursor:pointer;letter-spacing:.04em;}
+.lang button.on{background:var(--ink);color:#fff;}
+
+/* hero */
+.hero{padding:160px 0 var(--s6);}
+.hero .eyebrow{font-family:'Inter',sans-serif;font-size:12px;font-weight:700;letter-spacing:.22em;
+  color:var(--ink-3);margin-bottom:var(--s3);}
+.hero h1{font-size:clamp(32px,7vw,64px);font-weight:800;line-height:1.24;letter-spacing:-.02em;margin-bottom:var(--s3);}
+.hero h1 .ac{color:var(--accent);}
+.hero .sub{font-size:clamp(15px,2vw,18px);color:var(--ink-2);max-width:620px;line-height:1.95;}
+.langline{display:flex;flex-wrap:wrap;gap:10px;margin-top:var(--s4);}
+.langline span{font-family:'Inter',sans-serif;font-size:12.5px;font-weight:600;letter-spacing:.04em;
+  border:1px solid var(--line);background:var(--surface);padding:7px 16px;border-radius:999px;color:var(--ink-2);}
+
+
+/* hero marquee — 作品が流れる帯 */
+.marquee{margin-top:var(--s5);overflow:hidden;position:relative;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);}
+.marquee-track{display:flex;gap:16px;width:max-content;animation:slide 42s linear infinite;}
+.marquee:hover .marquee-track{animation-play-state:paused;}
+.marquee figure{flex:0 0 auto;width:260px;border-radius:12px;overflow:hidden;
+  border:1px solid var(--line);background:var(--surface);}
+.marquee img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;}
+@keyframes slide{from{transform:translateX(0);}to{transform:translateX(calc(-50% - 8px));}}
+@media (prefers-reduced-motion:reduce){.marquee-track{animation:none;}}
+@media (min-width:820px){ .marquee figure{width:340px;} }
+
+section{padding:var(--s6) 0;border-top:1px solid var(--line);}
+.num{font-family:'Inter',sans-serif;font-size:12px;font-weight:700;letter-spacing:.22em;color:var(--ink-3);margin-bottom:var(--s2);}
+h2{font-size:clamp(22px,3.6vw,32px);font-weight:800;line-height:1.5;letter-spacing:-.01em;margin-bottom:var(--s4);}
+p{font-size:15px;color:var(--ink-2);line-height:1.95;max-width:660px;}
+p + p{margin-top:var(--s2);}
+
+/* about */
+.about-grid{display:grid;gap:var(--s4);}
+.photo{width:180px;height:180px;border-radius:50%;overflow:hidden;background:var(--surface);
+  border:1px solid var(--line);display:flex;align-items:center;justify-content:center;}
+.photo img{width:100%;height:100%;object-fit:cover;}
+.photo .ph{font-family:'Inter',sans-serif;font-size:12px;color:var(--ink-3);text-align:center;padding:0 16px;line-height:1.6;}
+
+.about-photo{margin:var(--s4) 0 0;border-radius:14px;overflow:hidden;border:1px solid var(--line);}
+.about-photo img{width:100%;display:block;}
+.about-photo figcaption{font-size:12.5px;color:var(--ink-3);padding:12px 16px;background:var(--surface);line-height:1.7;}
+@media (min-width:820px){ .about-photo{max-width:520px;} }
+.skills{display:grid;gap:0;margin-top:var(--s4);border-top:1px solid var(--line);}
+.skills div{display:grid;grid-template-columns:130px 1fr;gap:16px;padding:14px 2px;border-bottom:1px solid var(--line);}
+.skills dt{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);}
+.skills dd{font-size:14px;color:var(--ink-2);}
+
+/* works */
+.works{display:grid;gap:var(--s4);}
+.work{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;
+  transition:transform .25s ease,box-shadow .25s ease;display:block;}
+.work:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(28,27,25,.08);}
+.work .thumb{aspect-ratio:4/3;overflow:hidden;background:#EEEBE5;}
+.work .thumb img{width:100%;height:100%;object-fit:cover;}
+.work .body{padding:24px 26px 28px;}
+.work .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+.work .tags span{font-family:'Inter',sans-serif;font-size:10.5px;font-weight:600;letter-spacing:.06em;
+  text-transform:uppercase;border:1px solid var(--line);padding:4px 10px;border-radius:999px;color:var(--ink-3);}
+.work h3{font-size:20px;font-weight:800;margin-bottom:8px;}
+.work p{font-size:14px;line-height:1.8;}
+.work .more{display:inline-block;margin-top:16px;font-size:13px;font-weight:700;color:var(--accent);}
+.work.soon{opacity:.55;pointer-events:none;}
+.work.soon .thumb{display:flex;align-items:center;justify-content:center;color:var(--ink-3);
+  font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.16em;}
+
+/* contact */
+.contact{background:var(--ink);color:#fff;border-top:none;}
+.contact h2{color:#fff;}
+.contact p{color:#B8B3AC;}
+.btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:var(--s4);}
+.btn{display:inline-block;font-size:14.5px;font-weight:700;padding:16px 30px;border-radius:999px;transition:.2s;}
+.btn.primary{background:#fff;color:var(--ink);}
+.btn.primary:hover{transform:translateY(-2px);}
+.btn.ghost{border:1px solid #4A4641;color:#fff;}
+.btn.ghost:hover{border-color:#fff;}
+
+footer{padding:var(--s4) 0 var(--s5);font-size:12px;color:var(--ink-3);text-align:center;}
+
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease;}
+.rv.in{opacity:1;transform:none;}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1!important;transform:none!important;transition:none!important;}html{scroll-behavior:auto;}}
+
+@media (min-width:820px){
+  body{font-size:16px;}
+  .hdr{padding:16px 40px;}
+  .wrap{padding:0 40px;}
+  .hero{padding:210px 0 var(--s7);}
+  section{padding:var(--s7) 0;}
+  .about-grid{grid-template-columns:180px 1fr;gap:var(--s5);align-items:start;}
+  .skills{grid-template-columns:1fr 1fr;column-gap:48px;}
+  .works{grid-template-columns:1fr 1fr;}
+  .work.feature{grid-column:1 / -1;display:grid;grid-template-columns:1.15fr 1fr;}
+  .work.feature .thumb{aspect-ratio:auto;height:100%;}
+  .work.feature .body{padding:44px 44px 48px;align-self:center;}
+  .work.feature h3{font-size:26px;}
+  p{font-size:16px;}
+}
+</style>
+</head>
+<body class="lang-jp">
+
+<header class="hdr">
+  <a class="nm" href="#top">KIE HERNANDEZ</a>
+  <nav>
+    <a href="#works"><span class="jp">制作物</span><span class="en">Works</span></a>
+    <a href="#about"><span class="jp">プロフィール</span><span class="en">About</span></a>
+    <a href="#contact"><span class="jp">お問い合わせ</span><span class="en">Contact</span></a>
+    <div class="lang">
+      <button id="bjp" class="on" onclick="setLang('jp')">JP</button>
+      <button id="ben" onclick="setLang('en')">EN</button>
+    </div>
+  </nav>
+</header>
+
+<!-- HERO -->
+<div class="hero" id="top">
+  <div class="wrap">
+    <div class="eyebrow rv">WEB DESIGNER — CALIFORNIA</div>
+    <h1 class="jp rv">LP・ブランド・広告動画まで。<br><span class="ac">3つの言語</span>で作ります。</h1>
+    <h1 class="en rv">From concept to code —<br>in <span class="ac">three languages.</span></h1>
+    <p class="sub jp rv">企画・リサーチから、ブランド設計、デザイン、広告動画、コーディング、公開まで。「きれいなページ」ではなく、お客様が動くページを作ります。</p>
+    <p class="sub en rv">Research, brand, design, ad creative, front-end and launch. I don't just build beautiful pages — I build pages that move people to act.</p>
+    <div class="langline rv"><span>日本語</span><span>English</span><span>Español</span></div>
+  </div>
+  <div class="marquee rv" aria-hidden="true">
+    <div class="marquee-track"><figure><img src="assets/work_momentum.jpg" alt="" loading="lazy"></figure><figure><img src="assets/work_toumachi.jpg" alt="" loading="lazy"></figure><figure><img src="assets/work_gallery.jpg" alt="" loading="lazy"></figure><figure><img src="assets/work_yuge.jpg" alt="" loading="lazy"></figure><figure><img src="assets/work_eclat.jpg" alt="" loading="lazy"></figure><figure><img src="assets/work_lumea.jpg" alt="" loading="lazy"></figure><figure><img src="assets/work_momentum.jpg" alt="" loading="lazy"></figure><figure><img src="assets/work_toumachi.jpg" alt="" loading="lazy"></figure><figure><img src="assets/work_gallery.jpg" alt="" loading="lazy"></figure><figure><img src="assets/work_yuge.jpg" alt="" loading="lazy"></figure><figure><img src="assets/work_eclat.jpg" alt="" loading="lazy"></figure><figure><img src="assets/work_lumea.jpg" alt="" loading="lazy"></figure></div>
+  </div>
+</div>
+
+<!-- WORKS -->
+<section id="works">
+  <div class="wrap">
+    <div class="num rv">SELECTED WORKS</div>
+    <h2 class="jp rv">制作物</h2>
+    <h2 class="en rv">Selected works</h2>
+    <div class="works">
+
+      <a class="work feature rv" href="works/momentum/index.html">
+        <div class="thumb"><img src="assets/work_momentum.jpg" alt="MOMENTUM Fit Studio"></div>
+        <div class="body">
+          <div class="tags"><span>Branding</span><span>LP Design</span><span>Reel Ad</span><span>Coding</span><span>JP / EN</span></div>
+          <h3>MOMENTUM Fit Studio</h3>
+          <p class="jp">Instagramのリール広告から無料体験予約までの導線を、企画・リサーチ・ブランド設計・デザイン・コーディング・予約フォームまで一貫して制作。日英バイリンガル対応の女性専用ジムのLPです。</p>
+          <p class="en">A complete customer journey — from an Instagram Reel ad to a booked trial session. Research, brand, design, front-end and booking form for a bilingual women-only fitness studio.</p>
+          <span class="more"><span class="jp">ケーススタディを見る →</span><span class="en">Read the case study →</span></span>
+        </div>
+      </a>
+
+      <a class="work rv" href="https://kiebu119.github.io/tomachi-hanabi-lp/" target="_blank" rel="noopener">
+        <div class="thumb"><img src="assets/work_toumachi.jpg" alt="とおまち 夏花火ナイト" loading="lazy"></div>
+        <div class="body">
+          <div class="tags"><span>Tourism</span><span>LP Design</span><span>Character</span><span>Video</span><span>Coding</span></div>
+          <h3><span class="jp">とおまち 夏花火ナイト</span><span class="en">Toumachi Summer Fireworks</span></h3>
+          <p class="jp">架空の観光地を舞台にした花火イベントのLP。オリジナルキャラクター「トーマくん」の設計から、AI動画、予約フォーム、SNSクリエイティブまで担当しました。</p>
+          <p class="en">A landing page for a fictional summer fireworks event, including an original character, AI-generated video, a booking form and social creatives.</p>
+          <span class="more"><span class="jp">サイトを見る →</span><span class="en">View the site →</span></span>
+        </div>
+      </a>
+
+      <a class="work rv" href="https://kiebu119.github.io/gallery-dot-afterimage/" target="_blank" rel="noopener">
+        <div class="thumb"><img src="assets/work_gallery.jpg" alt="GALLERY DOT — AFTER IMAGE" loading="lazy"></div>
+        <div class="body">
+          <div class="tags"><span>Art</span><span>LP Design</span><span>Coding</span></div>
+          <h3>GALLERY DOT — AFTER IMAGE</h3>
+          <p class="jp">ギャラリー10周年記念展のLP。静けさと余白で作品を主役にする構成。ヒアリング・ペルソナ設計から実装まで担当しました。</p>
+          <p class="en">A landing page for a gallery's 10th anniversary exhibition — built on silence and negative space so the artwork leads.</p>
+          <span class="more"><span class="jp">サイトを見る →</span><span class="en">View the site →</span></span>
+        </div>
+      </a>
+
+      <a class="work rv" href="https://kiebu119.github.io/Yuge-1p/" target="_blank" rel="noopener">
+        <div class="thumb"><img src="assets/work_yuge.jpg" alt="湯気 YUGE Sauna &amp; Spa" loading="lazy"></div>
+        <div class="body">
+          <div class="tags"><span>Local Business</span><span>LP Design</span><span>Campaign</span><span>Coding</span></div>
+          <h3><span class="jp">湯気 YUGE Sauna &amp; Spa</span><span class="en">YUGE Sauna &amp; Spa</span></h3>
+          <p class="jp">サウナ店舗の10周年キャンペーンLP。予約フォーム・LINE導線・特典設計まで、店舗運用を想定して構成しました。</p>
+          <p class="en">An anniversary campaign page for a sauna in Tokyo, designed around real-world operations — bookings, LINE and offers.</p>
+          <span class="more"><span class="jp">サイトを見る →</span><span class="en">View the site →</span></span>
+        </div>
+      </a>
+
+      <a class="work rv" href="https://kiebu119.github.io/eclat-lp/" target="_blank" rel="noopener">
+        <div class="thumb"><img src="assets/work_eclat.jpg" alt="ÉCLAT" loading="lazy"></div>
+        <div class="body">
+          <div class="tags"><span>Beauty</span><span>E-commerce</span><span>LP Design</span><span>Coding</span></div>
+          <h3>ÉCLAT</h3>
+          <p class="jp">美容サプリの通販型LP。成分表・定期購入フォーム・特定商取引法表記まで、実際の販売を想定して設計しました。</p>
+          <p class="en">A direct-to-consumer landing page for a beauty supplement, including ingredient tables, a subscription form and legal disclosures.</p>
+          <span class="more"><span class="jp">サイトを見る →</span><span class="en">View the site →</span></span>
+        </div>
+      </a>
+
+      <a class="work rv" href="https://kiebu119.github.io/lumea-shift-lp/" target="_blank" rel="noopener">
+        <div class="thumb"><img src="assets/work_lumea.jpg" alt="LUMEA SHIFT" loading="lazy"></div>
+        <div class="body">
+          <div class="tags"><span>Beauty</span><span>LP Design</span><span>Video</span><span>Coding</span></div>
+          <h3>LUMEA SHIFT</h3>
+          <p class="jp">オールインワン美容液のLP。「疲れた日こそケアがしんどい」という本音から入り、動画を中心に共感で運ぶ構成にしました。</p>
+          <p class="en">A landing page for an all-in-one serum, led by video and built on a simple truth: skincare feels hardest on the days you're most tired.</p>
+          <span class="more"><span class="jp">サイトを見る →</span><span class="en">View the site →</span></span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="num rv">ABOUT</div>
+    <h2 class="jp rv">プロフィール</h2>
+    <h2 class="en rv">About me</h2>
+    <div class="about-grid">
+      <div class="photo rv">
+        <!-- assets/profile.jpg を置くと自動で表示されます -->
+        <img src="assets/profile.jpg" alt="Kie Hernandez" onerror="this.style.display='none';this.parentNode.innerHTML='<div class=\'ph\'>PHOTO<br>assets/profile.jpg</div>'">
+      </div>
+      <div>
+        <p class="jp rv">大学で渡米し、カリフォルニア在住20年。夫の仕事の関係でメキシコにも暮らし、日本語・英語・スペイン語の3言語で仕事ができます。</p>
+        <p class="jp rv">前職はレストランのフロアマネージャー。お客様が何に迷い、何で決めるのかを現場で毎日見てきました。その後、事務・経理・Bookkeepingの実務を経て、子育てが一段落したタイミングでWebデザインとAIを使った制作を本格的に始めました。</p>
+        <p class="jp rv">デザインだけでなく、企画・コピー・広告動画・コーディングまで一貫して担当します。接客の現場で学んだ「人が動く理由」を、そのままページの設計に持ち込んでいます。</p>
+
+        <p class="en rv">I came to the U.S. for university and have lived in California for 20 years. I've also lived in Mexico, and I work in Japanese, English and Spanish.</p>
+        <p class="en rv">I spent years as a restaurant floor manager, watching every day what makes customers hesitate — and what makes them decide. After working in admin, accounting and bookkeeping, I moved into web design and AI-assisted production.</p>
+        <p class="en rv">I handle the whole process: concept, copy, design, video and front-end code. What I learned on the floor about why people act is exactly what I bring to page design.</p>
+
+        <figure class="about-photo rv">
+          <img src="assets/profile_family.jpg" alt="Kie Hernandez と家族 / Kie with her daughters" loading="lazy">
+          <figcaption><span class="jp">子育てが一段落したタイミングで、Webデザインの道へ。忙しい人の気持ちが分かるのは、自分がその中にいたからです。</span><span class="en">I moved into web design once my kids needed me a little less. I understand busy people because I've been one.</span></figcaption>
+        </figure>
+
+        <dl class="skills rv">
+          <div><dt>Design</dt><dd>LP / UI Design, Branding, Logo</dd></div>
+          <div><dt>Code</dt><dd>HTML / CSS / JavaScript, WordPress</dd></div>
+          <div><dt>Motion</dt><dd><span class="jp">広告動画・SNSクリエイティブ</span><span class="en">Ad video &amp; social creatives</span></dd></div>
+          <div><dt>Tools</dt><dd>Figma, CapCut, AI image &amp; video</dd></div>
+          <div><dt>Language</dt><dd><span class="jp">日本語・English・Español</span><span class="en">Japanese, English, Spanish</span></dd></div>
+          <div><dt>Based in</dt><dd>California, USA</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="num rv" style="color:#8B857D">CONTACT</div>
+    <h2 class="jp rv">お仕事のご相談</h2>
+    <h2 class="en rv">Let's work together</h2>
+    <p class="jp rv">LPのデザインだけでも、企画から公開まで一式でも承ります。まずはお気軽にご相談ください。</p>
+    <p class="en rv">Whether it's design only or the whole thing from concept to launch — feel free to reach out.</p>
+    <div class="btns">
+      <a class="btn primary" href="mailto:kiebu119@gmail.com"><span class="jp">メールで相談する</span><span class="en">Email me</span></a>
+      <a class="btn ghost" href="https://www.instagram.com/kie_web/" target="_blank" rel="noopener">Instagram</a>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Kie Hernandez</footer>
+
+<script>
+function setLang(l){
+  document.body.className='lang-'+l;
+  document.documentElement.lang=(l==='jp')?'ja':'en';
+  bjp.classList.toggle('on',l==='jp');
+  ben.classList.toggle('on',l==='en');
+  try{localStorage.setItem('kie_lang',l);}catch(e){}
+}
+try{var s=localStorage.getItem('kie_lang'); if(s) setLang(s);}catch(e){}
+var io=new IntersectionObserver(function(es){
+  es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+},{threshold:.1,rootMargin:'0px 0px -30px'});
+document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
+</script>
+</body>
+</html>
