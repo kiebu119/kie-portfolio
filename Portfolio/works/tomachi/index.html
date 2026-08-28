@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>とおまち 夏花火ナイト｜LP・キャラクター・動画制作 ケーススタディ</title>
+<meta name="description" content="架空の観光地を舞台にした花火イベントのLP。企画・リサーチ・オリジナルキャラクター設計・AI動画・コーディング・予約フォームまで一貫して制作したケーススタディ。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="とおまち 夏花火ナイト｜LP・キャラクター・動画制作">
+<meta property="og:description" content="「規模で勝負しない」を軸に設計した、観光イベントのランディングページ。">
+<meta property="og:image" content="https://kiebu119.github.io/kie-portfolio/works/tomachi/img/lp_hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F6F3; --surface:#fff; --ink:#1C1B19; --ink-2:#57534E; --ink-3:#8B857D;
+  --line:#E5E2DC; --accent:#1C1B19;
+  /* 作品側のブランドカラー（見本用） */
+  --navy:#1B2A4A; --lantern:#E8804A; --gold:#C9A227; --paper:#F6F1E7;
+  --s2:16px; --s3:24px; --s4:40px; --s5:64px; --s6:96px; --s7:140px;
+  --wrap:1080px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:'Zen Kaku Gothic New','Inter',sans-serif;
+  line-height:1.9;font-size:15px;-webkit-font-smoothing:antialiased;}
+body.lang-en{font-family:'Inter','Zen Kaku Gothic New',sans-serif;}
+body.lang-jp .en{display:none!important;}
+body.lang-en .jp{display:none!important;}
+img,video{display:block;max-width:100%;}
+a{color:inherit;text-decoration:none;}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px;}
+
+.hdr{position:fixed;inset:0 0 auto 0;z-index:100;display:flex;align-items:center;justify-content:space-between;
+  padding:14px 24px;background:rgba(247,246,243,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+.hdr .back{font-size:12.5px;font-weight:600;color:var(--ink-2);}
+.hdr .back:hover{color:var(--ink);}
+.lang{display:flex;border:1px solid var(--ink);border-radius:999px;overflow:hidden;}
+.lang button{border:none;background:transparent;color:var(--ink);font-family:inherit;font-weight:600;
+  font-size:11px;padding:6px 14px;cursor:pointer;letter-spacing:.04em;}
+.lang button.on{background:var(--ink);color:#fff;}
+
+.hero{padding:150px 0 var(--s6);}
+.tagrow{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:var(--s3);}
+.tag{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  border:1px solid var(--line);background:var(--surface);padding:5px 12px;border-radius:999px;color:var(--ink-2);}
+.hero h1{font-size:clamp(30px,6vw,56px);font-weight:800;line-height:1.3;letter-spacing:-.01em;margin-bottom:var(--s3);}
+.hero .sub{font-size:clamp(15px,2vw,18px);color:var(--ink-2);max-width:640px;line-height:1.95;}
+.hero-visual{margin-top:var(--s5);border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--surface);}
+
+.meta{display:grid;grid-template-columns:1fr;border-top:1px solid var(--line);margin-top:var(--s5);}
+.meta div{display:grid;grid-template-columns:110px 1fr;gap:16px;padding:16px 2px;border-bottom:1px solid var(--line);}
+.meta dt{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);}
+.meta dd{font-size:14px;color:var(--ink-2);}
+
+section{padding:var(--s6) 0;border-top:1px solid var(--line);}
+.num{font-family:'Inter',sans-serif;font-size:12px;font-weight:700;letter-spacing:.22em;color:var(--ink-3);margin-bottom:var(--s2);}
+h2{font-size:clamp(21px,3.4vw,30px);font-weight:800;line-height:1.5;margin-bottom:var(--s3);}
+h3{font-size:16.5px;font-weight:700;margin-bottom:10px;line-height:1.6;}
+p{font-size:15px;color:var(--ink-2);line-height:1.95;max-width:720px;}
+p + p{margin-top:var(--s2);}
+.lead{font-size:16.5px;color:var(--ink);font-weight:500;}
+figure{margin-top:var(--s4);}
+figure img,figure video{border-radius:12px;border:1px solid var(--line);background:var(--surface);width:100%;}
+figcaption{font-size:12.5px;color:var(--ink-3);margin-top:10px;line-height:1.7;}
+
+.cards{display:grid;gap:16px;margin-top:var(--s4);}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:26px;}
+.card .k{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--ink-3);text-transform:uppercase;margin-bottom:10px;}
+.card p{font-size:14px;}
+.card ul{list-style:none;margin-top:10px;}
+.card li{font-size:14px;color:var(--ink-2);padding-left:18px;position:relative;line-height:1.85;}
+.card li::before{content:"";position:absolute;left:2px;top:13px;width:6px;height:6px;border-radius:50%;background:var(--ink-3);}
+
+.strategy{background:var(--navy);color:#fff;border-radius:16px;padding:34px 28px;margin-top:var(--s4);}
+.strategy .k{font-size:11px;font-weight:700;letter-spacing:.18em;color:#94A3C4;margin-bottom:14px;}
+.strategy p{color:#D6DDEB;font-size:15px;max-width:660px;}
+.strategy .usp{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;}
+.strategy .usp span{font-size:13px;font-weight:700;border:1px solid #38486B;border-radius:999px;padding:8px 16px;}
+.strategy .usp span.hl{background:var(--lantern);border-color:var(--lantern);}
+
+.copybox{background:var(--navy);border-radius:16px;padding:52px 28px;margin-top:var(--s4);text-align:center;}
+.copybox .jpcopy{font-size:clamp(24px,4.6vw,38px);font-weight:800;line-height:1.6;color:#fff;}
+.copybox .small{font-size:14px;color:#94A3C4;margin-bottom:18px;}
+
+/* character */
+.chara{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:var(--s4);}
+.chara div{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px 12px;text-align:center;}
+.chara img{width:100%;max-width:160px;margin:0 auto 10px;border:none;background:transparent;}
+.chara span{font-size:12px;color:var(--ink-3);}
+
+.shots{display:grid;gap:16px;margin-top:var(--s4);}
+.shot{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface);}
+.shot img{border:none;border-radius:0;}
+.shot .cap{font-size:12px;color:var(--ink-3);padding:10px 14px;border-top:1px solid var(--line);}
+
+.reelwrap{display:grid;gap:var(--s4);margin-top:var(--s4);}
+.reelvid{max-width:320px;margin:0 auto;border-radius:16px;overflow:hidden;border:1px solid var(--line);}
+.reelvid video{border:none;border-radius:0;}
+
+.learn{display:grid;gap:14px;margin-top:var(--s4);}
+.learn div{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--ink);border-radius:10px;padding:22px 24px;}
+.learn h3{margin-bottom:8px;}
+.learn p{font-size:14px;}
+
+.cta-sec{background:var(--ink);color:#fff;border-top:none;}
+.cta-sec h2{color:#fff;}
+.cta-sec p{color:#B8B3AC;}
+.cta-btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:var(--s4);}
+.btn{display:inline-block;font-size:14.5px;font-weight:700;padding:16px 30px;border-radius:999px;transition:.2s;}
+.btn.primary{background:#fff;color:var(--ink);}
+.btn.primary:hover{transform:translateY(-2px);}
+.btn.ghost{border:1px solid #4A4641;color:#fff;}
+.btn.ghost:hover{border-color:#fff;}
+
+footer{padding:var(--s4) 0 var(--s5);font-size:12px;color:var(--ink-3);text-align:center;line-height:1.9;}
+
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease;}
+.rv.in{opacity:1;transform:none;}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1!important;transform:none!important;transition:none!important;}html{scroll-behavior:auto;}}
+
+@media (min-width:820px){
+  body{font-size:16px;}
+  .hdr{padding:16px 40px;}
+  .wrap{padding:0 40px;}
+  .hero{padding:190px 0 var(--s7);}
+  section{padding:var(--s7) 0;}
+  .meta{grid-template-columns:repeat(2,1fr);column-gap:48px;}
+  .cards{grid-template-columns:repeat(3,1fr);}
+  .chara{grid-template-columns:repeat(4,1fr);}
+  .shots{grid-template-columns:1fr 1fr;}
+  .strategy{padding:56px 48px;}
+  .copybox{padding:88px 40px;}
+  .reelwrap{grid-template-columns:340px 1fr;align-items:center;}
+  .reelvid{margin:0;}
+  p{font-size:16px;}
+}
+</style>
+</head>
+<body class="lang-jp">
+
+<header class="hdr">
+  <a class="back" href="../../index.html"><span class="jp">← Works に戻る</span><span class="en">← Back to Works</span></a>
+  <div class="lang">
+    <button id="bjp" class="on" onclick="setLang('jp')">JP</button>
+    <button id="ben" onclick="setLang('en')">EN</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="wrap">
+    <div class="tagrow rv">
+      <span class="tag">Tourism</span><span class="tag">LP Design</span>
+      <span class="tag">Character</span><span class="tag">Video</span><span class="tag">Coding</span>
+    </div>
+    <h1 class="jp rv">大きい花火大会には、<br>勝たなくていい。</h1>
+    <h1 class="en rv">You don't have to beat<br>the big fireworks festival.</h1>
+    <p class="sub jp rv">架空の観光地「とおまち」の花火イベントLP。規模で張り合うのではなく、「混みすぎない」ことを価値に変える方向で設計しました。企画・リサーチからオリジナルキャラクター、AI動画、コーディング、予約フォームまで一人で担当しています。</p>
+    <p class="sub en rv">A landing page for a fireworks event in a fictional Japanese town. Instead of competing on scale, I turned "not too crowded" into the selling point — handling research, an original character, AI video, front-end and the booking form myself.</p>
+    <figure class="hero-visual rv"><img src="img/lp_hero.jpg" alt="とおまち 夏花火ナイトのファーストビュー / The hero section of the landing page"></figure>
+    <dl class="meta rv">
+      <div><dt>Role</dt><dd><span class="jp">企画・リサーチ・キャラクター設計・UIデザイン・動画・実装</span><span class="en">Concept, research, character design, UI, video, front-end</span></dd></div>
+      <div><dt>Deliverables</dt><dd><span class="jp">LP／オリジナルキャラクター／PR動画／SNSクリエイティブ／予約フォーム</span><span class="en">Landing page / Original character / PR video / Social creatives / Booking form</span></dd></div>
+      <div><dt>Tools</dt><dd>Figma, HTML / CSS / JavaScript, Google Apps Script, CapCut, AI image &amp; video</dd></div>
+      <div><dt>Type</dt><dd><span class="jp">コンセプトプロジェクト（架空の観光地）</span><span class="en">Concept project (fictional destination)</span></dd></div>
+    </dl>
+  </div>
+</div>
+
+<!-- 01 CHALLENGE -->
+<section>
+  <div class="wrap">
+    <div class="num rv">01 — CHALLENGE</div>
+    <h2 class="jp rv">花火は見たい。<br>でも、あの人混みは無理。</h2>
+    <h2 class="en rv">They want to see fireworks —<br>just not the crowds.</h2>
+    <p class="lead jp rv">花火大会に行きたい気持ちはあるのに、混雑・移動・帰りの電車を思い出すと足が止まる。小さな町のイベントが、大きな花火大会と同じ土俵で「規模」を訴えても勝てません。</p>
+    <p class="lead en rv">People want to go, but the memory of the crowds, the travel and the packed trains stops them. A small town can't win by competing on scale with the big festivals.</p>
+    <p class="jp rv">この案件の課題は、知名度でも打ち上げ数でもなく、「今年の夏、まだ予定を決めていない人」に、行かない理由を1つずつ外してもらうことでした。</p>
+    <p class="en rv">The real task wasn't fame or firework count — it was removing, one by one, the reasons someone with no summer plans decides not to go.</p>
+  </div>
+</section>
+
+<!-- 02 INSIGHT -->
+<section>
+  <div class="wrap">
+    <div class="num rv">02 — INSIGHT</div>
+    <h2 class="jp rv">「小さい」は、弱みではなかった</h2>
+    <h2 class="en rv">"Small" wasn't the weakness</h2>
+    <p class="jp rv">花火大会の不満を洗い出すと、出てくるのは打ち上げ数ではなく体験の質でした。人が多すぎて見えない、帰りが大変、毎年同じ場所で飽きた。つまり大規模であることは、そのまま不満の原因でもあります。</p>
+    <p class="en rv">Listing what people dislike about fireworks festivals, the complaints were never about the number of shells — they were about the experience. Too crowded to see, exhausting to get home, the same place every year. Scale itself is the source of the frustration.</p>
+    <div class="cards">
+      <div class="card rv"><div class="k">Pain 01</div><h3 class="jp">混雑がすごい</h3><h3 class="en">Overwhelming crowds</h3><p class="jp">人が多すぎてゆっくり見られない。帰りの電車も大変。</p><p class="en">Too many people to enjoy it, and the trip home is brutal.</p></div>
+      <div class="card rv"><div class="k">Pain 02</div><h3 class="jp">移動が疲れる</h3><h3 class="en">The travel wears you out</h3><p class="jp">遠出するほどの気合いは出したくない。でも近場では物足りない。</p><p class="en">Not enough energy for a long trip — but nearby feels dull.</p></div>
+      <div class="card rv"><div class="k">Pain 03</div><h3 class="jp">毎年同じ場所</h3><h3 class="en">The same place, every year</h3><p class="jp">「また今年も同じとこ?」少し物足りなくなってきた。</p><p class="en">"The same spot again?" It's starting to feel repetitive.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 STRATEGY -->
+<section>
+  <div class="wrap">
+    <div class="num rv">03 — STRATEGY</div>
+    <h2 class="jp rv">規模で勝負しない、<br>という決定</h2>
+    <h2 class="en rv">The decision:<br>don't compete on scale</h2>
+    <p class="jp rv">約3,000発という規模は、大規模大会と比べれば小さい。そこを隠して背伸びするのではなく、「ちょうどいい」と言い切る方向に振りました。混雑しない・駅から徒歩10分・気合いがいらない。すべて、大きい大会には作れない価値です。</p>
+    <p class="en rv">Three thousand shells is modest next to the major festivals. Rather than hiding that, I named it: this is the right size. Not crowded, ten minutes from the station, no effort required — none of which a large festival can offer.</p>
+    <div class="strategy rv">
+      <div class="k">CORE POSITIONING</div>
+      <p class="jp">「一番大きい花火大会」ではなく、<br>気合いを入れなくても行ける、ちょうどいい夏。</p>
+      <p class="en">Not the biggest fireworks festival — the one you can actually just show up to.</p>
+      <div class="usp">
+        <span class="hl">混みすぎない</span><span class="hl">駅から徒歩10分</span>
+        <span class="hl">ふらっと行ける</span><span>商店街で食べ歩き</span><span>泊まればもっと楽しい</span>
+      </div>
+    </div>
+    <p class="jp rv" style="margin-top:var(--s4)">この判断は、そのままコピーと写真選びの基準になりました。派手な打ち上げの瞬間より、提灯の下を歩く人、川辺に座る浴衣姿。「その日の過ごし方」が伝わる画を優先しています。</p>
+    <p class="en rv" style="margin-top:var(--s4)">That decision became the rule for copy and photography: fewer explosive climaxes, more lanterns overhead and people sitting by the river — images of how the evening actually feels.</p>
+  </div>
+</section>
+
+<!-- 04 CONCEPT -->
+<section>
+  <div class="wrap">
+    <div class="num rv">04 — CONCEPT &amp; COPY</div>
+    <h2 class="jp rv">「行こう」ではなく<br>「寄れる」</h2>
+    <h2 class="en rv">Not "go" — <br>just "stop by"</h2>
+    <p class="jp rv">コピーで一番こだわったのは動詞です。「行く」は準備と決意が必要ですが、「寄れる」なら軽い。ターゲットが手放したいのは花火ではなく、気合いを入れる工程だからです。</p>
+    <p class="en rv">The verb mattered most. "Going" implies planning and commitment; "stopping by" costs nothing. What this audience wants to skip isn't the fireworks — it's the effort around them.</p>
+    <div class="copybox rv">
+      <div class="small jp">混みすぎる花火大会より、</div>
+      <div class="small en">Instead of the crowded ones —</div>
+      <div class="jpcopy jp">ふらっと寄れる夏を。</div>
+      <div class="jpcopy en">a summer you can just drop into.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 CHARACTER -->
+<section>
+  <div class="wrap">
+    <div class="num rv">05 — CHARACTER DESIGN</div>
+    <h2 class="jp rv">町の案内役、<br>トーマくん</h2>
+    <h2 class="en rv">Meet Toma,<br>the town's guide</h2>
+    <p class="jp rv">観光地のLPは、情報が多くなるほど「読む作業」になります。そこで案内役のキャラクターを作り、悩みへの共感・町の紹介・予約の後押しをすべてトーマくんの言葉で運ぶ設計にしました。10種類以上の表情とポーズを用意し、セクションごとに感情を合わせています。</p>
+    <p class="en rv">Tourism pages get information-heavy fast, and reading turns into work. So I created a guide character: empathy, introductions and the final nudge to book all come through Toma's voice. More than ten poses and expressions were made so his mood matches each section.</p>
+    <div class="chara">
+      <div class="rv"><img src="img/toma-wave.png" alt="手を振るトーマくん"><span class="jp">あいさつ</span><span class="en">Greeting</span></div>
+      <div class="rv"><img src="img/toma-speech.png" alt="話しかけるトーマくん"><span class="jp">共感・語りかけ</span><span class="en">Empathy</span></div>
+      <div class="rv"><img src="img/toma-guide.png" alt="案内するトーマくん"><span class="jp">町の案内</span><span class="en">Guiding</span></div>
+      <div class="rv"><img src="img/toma-fireworks.png" alt="花火を見上げるトーマくん"><span class="jp">花火の魅力</span><span class="en">The fireworks</span></div>
+    </div>
+    <figure class="rv"><img src="img/lp_worry.jpg" alt="悩みに共感するセクション / The empathy section">
+      <figcaption><span class="jp">「毎年、花火大会ってちょっと大変じゃない?」— 否定から入らず、まず同意する。キャラクターが言うことで、押し付けがましくならない。</span><span class="en">"Fireworks festivals are kind of a hassle, right?" Agreement first, never contradiction — and coming from a character, it never feels like a sales pitch.</span></figcaption></figure>
+    <p class="jp rv">キャラクターには音声も付けました。タップすると声が聞ける仕掛けで、滞在時間と記憶に残る度合いを上げています。</p>
+    <p class="en rv">Toma also has a voice — tap to hear him — which lifts both time on page and how well the town is remembered.</p>
+  </div>
+</section>
+
+<!-- 06 STRUCTURE -->
+<section>
+  <div class="wrap">
+    <div class="num rv">06 — UX &amp; STRUCTURE</div>
+    <h2 class="jp rv">花火だけで<br>帰らせない構成</h2>
+    <h2 class="en rv">Designed so they don't<br>just leave after the show</h2>
+    <p class="jp rv">観光イベントの目的は集客だけではなく、町にお金と記憶を落としてもらうことです。そこでLPを「花火の告知」で終わらせず、到着から翌朝までの一日として見せました。商店街の食べ歩き、宿、翌日の散策まで並べることで、日帰り前提だった人に宿泊を検討させる導線にしています。</p>
+    <p class="en rv">A tourism event isn't only about attendance — it's about what the town keeps afterwards. So the page isn't an announcement; it's a whole day, from arrival to the next morning. Street food, inns and a morning walk are laid out so day-trippers start considering an overnight stay.</p>
+    <div class="shots">
+      <div class="shot rv"><img src="img/lp_about.jpg" alt="町の魅力を伝えるセクション"><div class="cap"><span class="jp">ちょうどいい、がここにある — 3つの理由</span><span class="en">"Just the right size" — three reasons</span></div></div>
+      <div class="shot rv"><img src="img/lp_stay.jpg" alt="宿泊施設の紹介セクション"><div class="cap"><span class="jp">泊まる選択肢を提示（旅館・民宿・ホテル）</span><span class="en">Where to stay — ryokan, guesthouse, hotel</span></div></div>
+      <div class="shot rv"><img src="img/lp_food.jpg" alt="グルメ紹介セクション"><div class="cap"><span class="jp">商店街のグルメ6店舗。地図リンク付き</span><span class="en">Six local restaurants, each linked to maps</span></div></div>
+      <div class="shot rv"><img src="img/lp_form.jpg" alt="観覧席の予約フォーム"><div class="cap"><span class="jp">有料観覧席の予約フォーム（人数選択・確認画面つき）</span><span class="en">Seat reservation form with party size and confirmation</span></div></div>
+    </div>
+    <p class="jp rv" style="margin-top:var(--s4)">宿の相談はLINEに逃がしました。「電話するほどではないけれど聞きたい」という温度感に合わせた導線です。予約フォームはGoogle Apps Scriptでスプレッドシートに記録され、運営がそのまま使える形にしています。</p>
+    <p class="en rv" style="margin-top:var(--s4)">Questions about lodging are routed to LINE — the right channel for "I'd ask, but not enough to call." Reservations are logged to a spreadsheet via Google Apps Script, ready for the organisers to work from.</p>
+  </div>
+</section>
+
+<!-- 07 VIDEO -->
+<section>
+  <div class="wrap">
+    <div class="num rv">07 — VIDEO &amp; SOCIAL</div>
+    <h2 class="jp rv">キャラクターが動くと、<br>町が実在しはじめる</h2>
+    <h2 class="en rv">Once the character moves,<br>the town starts to exist</h2>
+    <p class="jp rv">SNS用にPR動画を制作しました。トーマくんをAIで動かし、声を当て、町の風景と組み合わせています。静止画のキャラクターが動いて喋ることで、架空の町に生活感が生まれました。</p>
+    <p class="en rv">I produced a PR video for social. Toma was animated with AI, given a voice, and cut together with scenes of the town — and the moment a still character moves and speaks, a fictional place starts to feel lived in.</p>
+    <div class="reelwrap">
+      <div class="reelvid rv"><video src="img/reel.mp4" controls playsinline preload="none" poster="img/reel_cover.jpg"></video></div>
+      <div>
+        <p class="jp rv">LPとSNSで同じキャラクター・同じコピーを使い、どちらから来ても同じ町に着地するようにしています。広告で興味を持った人が、ページで「さっきのカエルだ」と気づく——その一瞬が、離脱を防ぎます。</p>
+        <p class="en rv">The same character and copy run across the video and the page, so whichever way someone arrives, they land in the same town. That flash of recognition — "the frog from the video" — is what keeps them from bouncing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 LEARNED -->
+<section>
+  <div class="wrap">
+    <div class="num rv">08 — WHAT I LEARNED</div>
+    <h2 class="jp rv">この案件で<br>持ち帰ったこと</h2>
+    <h2 class="en rv">What I took away</h2>
+    <div class="learn">
+      <div class="rv"><h3 class="jp">弱みは、言い方で価値になる</h3><h3 class="en">A weakness is a framing problem</h3>
+        <p class="jp">規模が小さいことを隠さず「ちょうどいい」と言い切ったことで、大規模大会と比較されない立ち位置ができました。</p>
+        <p class="en">Naming the small scale as "just right" moved the event out of direct comparison with the big festivals entirely.</p></div>
+      <div class="rv"><h3 class="jp">キャラクターは、情報を軽くする</h3><h3 class="en">A character makes information lighter</h3>
+        <p class="jp">同じ内容でも、案内役が話すと読む負担が下がります。観光のように情報量が多い案件ほど効果的でした。</p>
+        <p class="en">The same content reads more easily when a guide says it — especially valuable on information-heavy tourism pages.</p></div>
+      <div class="rv"><h3 class="jp">目的は集客ではなく、滞在</h3><h3 class="en">The goal wasn't attendance — it was staying</h3>
+        <p class="jp">花火の告知で終わらせず一日の流れを見せたことで、宿泊とグルメへの導線が自然に繋がりました。</p>
+        <p class="en">Showing a whole day rather than announcing an event made lodging and food feel like the natural next step.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-sec">
+  <div class="wrap">
+    <h2 class="jp rv">同じような制作の<br>ご相談も承っています</h2>
+    <h2 class="en rv">Looking for something<br>like this?</h2>
+    <p class="jp rv">LPのデザインだけでなく、企画・キャラクター設計・広告動画・実装・公開まで一貫してお手伝いできます。日英どちらの制作にも対応しています。</p>
+    <p class="en rv">I can help with the whole thing — concept, character design, ad creative, front-end and launch — in Japanese, English, or both.</p>
+    <div class="cta-btns">
+      <a class="btn primary" href="https://kiebu119.github.io/tomachi-hanabi-lp/" target="_blank" rel="noopener"><span class="jp">公開ページを見る →</span><span class="en">View the live site →</span></a>
+      <a class="btn ghost" href="../../index.html#works"><span class="jp">他の制作物を見る</span><span class="en">See other work</span></a>
+      <a class="btn ghost" href="../../index.html#contact"><span class="jp">お問い合わせ</span><span class="en">Get in touch</span></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div><span class="jp">「とおまち 夏花火ナイト」はデザイン学習・提案を目的としたコンセプトプロジェクトです。実在の地域・団体とは関係ありません。</span>
+       <span class="en">"Toumachi Summer Fireworks" is a concept project created for design purposes and is not affiliated with any real town or organisation.</span></div>
+</footer>
+
+<script>
+function setLang(l){
+  document.body.className='lang-'+l;
+  document.documentElement.lang=(l==='jp')?'ja':'en';
+  bjp.classList.toggle('on',l==='jp');
+  ben.classList.toggle('on',l==='en');
+  try{localStorage.setItem('kie_lang',l);}catch(e){}
+}
+try{var s=localStorage.getItem('kie_lang'); if(s) setLang(s);}catch(e){}
+var io=new IntersectionObserver(function(es){
+  es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+},{threshold:.1,rootMargin:'0px 0px -30px'});
+document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
+</script>
+</body>
+</html>
