@@ -178,7 +178,7 @@ footer{padding:var(--s4) 0 var(--s5);font-size:12px;color:var(--ink-3);text-alig
     <figure class="hero-visual rv"><img src="img/lp_hero.jpg" alt="KABU STORYのファーストビュー / The hero section of the landing page"></figure>
     <dl class="meta rv">
       <div><dt>Role</dt><dd><span class="jp">ペルソナ・構成・キャラクター画像生成・UIデザイン・実装</span><span class="en">Persona, structure, AI character art, UI, front-end</span></dd></div>
-      <div><dt>Deliverables</dt><dd><span class="jp">LP／キャラクター画像10点／縦読みマンガ／LINE登録フォーム／画像生成プロンプト集</span><span class="en">Landing page / 10 character images / Scrolling manga / Sign-up form / Prompt sheet</span></dd></div>
+      <div><dt>Deliverables</dt><dd><span class="jp">LP／キャラクター画像16点／縦読みマンガ／LINE登録フォーム／画像生成プロンプト集</span><span class="en">Landing page / 16 character images / Scrolling manga / Sign-up form / Prompt sheets</span></dd></div>
       <div><dt>Tools</dt><dd>HTML / CSS / JavaScript, Google Apps Script, ChatGPT (image generation), Claude</dd></div>
       <div><dt>Type</dt><dd><span class="jp">コンセプトプロジェクト（架空のサービス）</span><span class="en">Concept project (fictional service)</span></dd></div>
     </dl>
@@ -239,8 +239,8 @@ footer{padding:var(--s4) 0 var(--s5);font-size:12px;color:var(--ink-3);text-alig
     <div class="num rv">04 — AI CHARACTERS</div>
     <h2 class="jp rv">AI画像でも、<br>キャラをブレさせない</h2>
     <h2 class="en rv">AI images,<br>consistent characters</h2>
-    <p class="jp rv">キャラクター画像10点はChatGPTで生成しました。AI画像は1枚ごとに顔や服装が変わりやすいため、最初に3人の見た目と服装を固定する宣言を送り、笑顔の全身画像を「基準」として先に確定。そのうえで、全10枚を同じチャット内で生成しています。</p>
-    <p class="en rv">All ten character images were generated with ChatGPT. Since AI drifts on faces and outfits, I opened with a fixed spec for all three characters, locked a full-body "reference" image first, and produced every image in a single chat.</p>
+    <p class="jp rv">キャラクター画像16点はChatGPTで生成しました。AI画像は1枚ごとに顔や服装が変わりやすいため、最初に3人の見た目と服装を固定する宣言を送り、笑顔の全身画像を「基準」として先に確定。そのうえで、同じチャット内で続けて生成しています。</p>
+    <p class="en rv">All ten character images were generated with ChatGPT. Since AI drifts on faces and outfits, I opened with a fixed spec for all three characters, locked a full-body "reference" image first, and produced the images in a single chat.</p>
     <div class="chara">
       <div class="rv"><img src="img/chara_h6.jpg" alt="ハルカ（基準画像）"><b><span class="jp">ハルカ</span><span class="en">Haruka</span></b><span class="jp">主人公・読者の分身</span><span class="en">The reader's stand-in</span></div>
       <div class="rv"><img src="img/chara_h3.jpg" alt="混乱するハルカ"><b><span class="jp">ハルカ（混乱）</span><span class="en">Haruka, confused</span></b><span class="jp">悩み共感のシーン</span><span class="en">The empathy scene</span></div>
@@ -256,15 +256,32 @@ footer{padding:var(--s4) 0 var(--s5);font-size:12px;color:var(--ink-3);text-alig
 <section>
   <div class="wrap">
     <div class="num rv">05 — MANGA IN CODE</div>
-    <h2 class="jp rv">マンガは、<br>ツールではなくコードで組む</h2>
-    <h2 class="en rv">The manga is built<br>in code, not in a comic tool</h2>
-    <p class="jp rv">試し読みの縦読みマンガは、マンガ編集ツールで1枚絵にせず、HTML/CSSで組みました。コマ割り・吹き出し・集中線・飛び散る金融用語まですべてコードです。AI画像で日本語が崩れる心配がなく、セリフを直すときもテキストを1行書き換えるだけで済みます。</p>
-    <p class="en rv">The free chapter isn't a flattened image from a comic app — panels, speech bubbles, speed lines and flying jargon are all HTML/CSS. No garbled AI lettering, and changing a line of dialogue is a one-line text edit.</p>
+    <h2 class="jp rv">読みたくなる所で、<br>あえて止める</h2>
+    <h2 class="en rv">Stop right where<br>they want to keep reading</h2>
+    <p class="jp rv">試し読みは、ハルカが将来に不安を感じる夜から始まります。翌朝、同期のミホが「ハワイで結婚する」と報告。「お金ないって言ってたよね！？」と驚くハルカに、ミホは「それが、あるんですよ〜」とだけ答えて、話はそこで「つづく」。答えはLINEで読める、という導線です。</p>
+    <p class="en rv">The free chapter opens on Haruka's anxious night. Next morning, her colleague Miho announces a wedding in Hawaii. "Weren't you broke?!" "Well… not anymore." — and the chapter ends there. The answer lives in LINE.</p>
     <div class="shots">
-      <div class="shot rv"><img src="img/manga_b.jpg" alt="2コマ並列のシーン"><div class="cap"><span class="jp">吹き出しとモノローグ枠はCSSで画像の上に重ねている</span><span class="en">Bubbles and captions are CSS layered on the art</span></div></div>
-      <div class="shot rv"><img src="img/manga_d.jpg" alt="タクミとの出会いのシーン"><div class="cap"><span class="jp">出会いのシーン。上60%・下40%の縦積みコマ</span><span class="en">The meeting scene — a 60/40 stacked panel</span></div></div>
-      <div class="shot rv"><img src="img/manga_e.jpg" alt="気づきの3連コマ"><div class="cap"><span class="jp">気づきの3連コマ。似た表情の2枚を、寄り→顔全体→上半身と切り抜き方で変えている</span><span class="en">The "aha" sequence: two similar images, cropped tight → face → upper body so the emotion builds</span></div></div>
-      <div class="shot rv"><img src="img/sp_hero.jpg" alt="スマホ表示のファーストビュー"><div class="cap"><span class="jp">スマホのFV。マンガのコマをそのまま紙芝居スライダーに</span><span class="en">Mobile hero — comic frames as an auto-advancing slideshow</span></div></div>
+      <div class="shot rv"><img src="img/manga_s1.jpg" alt="将来不安と出社のコマ"><div class="cap"><span class="jp">夜の不安 → 出社。心の声は「○ ○」のしっぽの吹き出しで</span><span class="en">Night-time worry, then the commute — thoughts use a cloud-tail bubble</span></div></div>
+      <div class="shot rv"><img src="img/manga_s2.jpg" alt="ミホの結婚報告とハルカの驚き"><div class="cap"><span class="jp">事件と衝撃。キラーン・ガーンの擬音で感情を足す</span><span class="en">The twist and the shock, amplified with sound effects</span></div></div>
+      <div class="shot rv"><img src="img/manga_s3.jpg" alt="ミホの秘密と、つづく"><div class="cap"><span class="jp">秘密は言わずに「つづく」。ここからLINE登録へ</span><span class="en">The secret stays secret — "to be continued" leads to LINE</span></div></div>
+      <div class="shot rv"><img src="img/sp_hero.jpg" alt="スマホ表示のファーストビュー"><div class="cap"><span class="jp">スマホのFV。「将来、どうなるんだろ…」から「むずかしいは、もういらない。」へ</span><span class="en">Mobile hero — from "What will my future look like?" to "No more 'too complicated.'"</span></div></div>
+    </div>
+    <p class="jp rv" style="margin-top:var(--s4)">コマ割り・吹き出し・擬音は、マンガ編集ツールで1枚絵にせず、すべてHTML/CSSで組んでいます。AI画像で日本語が崩れる心配がなく、セリフの修正もテキストを書き換えるだけです。</p>
+    <p class="en rv" style="margin-top:var(--s4)">Panels, bubbles and sound effects are all HTML/CSS rather than a flattened image from a comic app — no garbled AI lettering, and a line of dialogue is a simple text edit.</p>
+  </div>
+</section>
+
+<!-- 05b ITERATION -->
+<section>
+  <div class="wrap">
+    <div class="num rv">06 — ITERATION</div>
+    <h2 class="jp rv">フィードバックで、<br>もう一段マンガらしく</h2>
+    <h2 class="en rv">One more pass,<br>after feedback</h2>
+    <p class="jp rv">最初の版は、ハルカが「わかりやすい！」と納得するところまで試し読みで見せていました。コーチから「もっと手前で止めて、続きはLINEで」「吹き出しは絵の中に」「擬音で感情を」というフィードバックをもらい、ストーリーと見せ方を作り直しています。新しいコマ用に、画像を6枚追加で生成しました。</p>
+    <p class="en rv">The first version showed the whole payoff — Haruka saying "that's so clear!". After coach feedback — stop earlier and send the rest to LINE, put the bubbles in the art, add sound effects — I rebuilt the story and generated six new images for it.</p>
+    <div class="shots">
+      <div class="shot rv"><img src="img/manga_e.jpg" alt="改善前の試し読み"><div class="cap"><span class="jp">BEFORE：「わかった！」まで全部見せていた</span><span class="en">Before: the whole payoff was on the page</span></div></div>
+      <div class="shot rv"><img src="img/manga_s3.jpg" alt="改善後の試し読み"><div class="cap"><span class="jp">AFTER：いちばん気になる所で「つづく」</span><span class="en">After: it stops at the cliffhanger</span></div></div>
     </div>
   </div>
 </section>
@@ -272,7 +289,7 @@ footer{padding:var(--s4) 0 var(--s5);font-size:12px;color:var(--ink-3);text-alig
 <!-- 06 DETAILS -->
 <section>
   <div class="wrap">
-    <div class="num rv">06 — TRUST &amp; DETAILS</div>
+    <div class="num rv">07 — TRUST &amp; DETAILS</div>
     <h2 class="jp rv">金融テーマだからこそ、<br>言い切らない</h2>
     <h2 class="en rv">A finance page that<br>never over-promises</h2>
     <p class="jp rv">投資をテーマにする以上、「儲かる」「絶対」「損しない」のような断定表現は使えません。全文をNGワードリストでチェックし、ベネフィットも「利益」ではなく「理解できるようになること」に絞りました。FAQでは特定の商品をすすめないことを明記し、フッターにはリスクの注意書きを入れています。</p>
@@ -285,8 +302,8 @@ footer{padding:var(--s4) 0 var(--s5);font-size:12px;color:var(--ink-3);text-alig
     </div>
     <div class="stat">
       <div class="rv"><div class="v">19MB → 0.9MB</div><div class="l"><span class="jp">画像をWebPに変換して軽量化</span><span class="en">Images converted to WebP</span></div></div>
-      <div class="rv"><div class="v">10</div><div class="l"><span class="jp">1つのチャットで生成したキャラクター画像</span><span class="en">Character images from a single chat</span></div></div>
-      <div class="rv"><div class="v">0</div><div class="l"><span class="jp">画像に焼き込んだセリフの文字</span><span class="en">Words of dialogue baked into the art</span></div></div>
+      <div class="rv"><div class="v">16</div><div class="l"><span class="jp">世界観をそろえて生成したキャラクター画像</span><span class="en">Consistent AI character images</span></div></div>
+      <div class="rv"><div class="v">0</div><div class="l"><span class="jp">画像に焼き込んだセリフ・擬音の文字</span><span class="en">Words of dialogue or SFX baked into the art</span></div></div>
     </div>
   </div>
 </section>
@@ -294,7 +311,7 @@ footer{padding:var(--s4) 0 var(--s5);font-size:12px;color:var(--ink-3);text-alig
 <!-- 07 LEARNED -->
 <section>
   <div class="wrap">
-    <div class="num rv">07 — WHAT I LEARNED</div>
+    <div class="num rv">08 — WHAT I LEARNED</div>
     <h2 class="jp rv">この制作で<br>持ち帰ったこと</h2>
     <h2 class="en rv">What I took away</h2>
     <div class="learn">
@@ -302,11 +319,11 @@ footer{padding:var(--s4) 0 var(--s5);font-size:12px;color:var(--ink-3);text-alig
         <p class="jp">主人公の気持ちが変わる順番にセクションを並べると、CTAが「売り込み」ではなく物語の続きになりました。</p>
         <p class="en">Ordering sections by how the heroine feels turned the CTA into the next page of the story rather than a pitch.</p></div>
       <div class="rv"><h3 class="jp">AIは、ルールを先に渡すと安定する</h3><h3 class="en">AI is consistent when the rules come first</h3>
-        <p class="jp">キャラの設定と基準画像を最初に固めたことで、10枚を通して同じ人物として見せられました。</p>
-        <p class="en">Locking the spec and a reference image up front kept the same three people across all ten images.</p></div>
+        <p class="jp">キャラの設定と基準画像を最初に固めたことで、あとから6枚追加しても同じ人物として見せられました。</p>
+        <p class="en">Locking the spec and a reference image up front kept the same people even when six images were added later.</p></div>
       <div class="rv"><h3 class="jp">画像とテキストは分けて持つ</h3><h3 class="en">Keep art and text apart</h3>
-        <p class="jp">セリフを画像に入れずコードで重ねたことで、修正・翻訳・差し替えのどれにも強い作りになりました。</p>
-        <p class="en">Lettering in code instead of in the image makes edits, translation and swaps painless.</p></div>
+        <p class="jp">セリフを画像に入れずコードで重ねていたので、フィードバックでストーリーを変えたときも、作り直しは画像と数行のテキストだけで済みました。</p>
+        <p class="en">Because the lettering lived in code, rewriting the story after feedback took a few new images and a few lines of text.</p></div>
     </div>
   </div>
 </section>
