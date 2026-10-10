@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MACRO BOX｜静的サイトEC・Stripe決済・GA4計測 ケーススタディ</title>
+<meta name="description" content="WordPressを使わず、Pythonで生成した静的サイトにStripe決済とGA4/GTM/Clarityの計測を実装したECサイトのケーススタディ。同じ設計を2つの技術で作り、何が変わるかを検証しました。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kiebu119.github.io/kie-portfolio/works/macrobox/">
+<meta property="og:site_name" content="Kie Hernandez Portfolio">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="MACRO BOX｜静的サイトEC・Stripe決済・GA4計測">
+<meta property="og:description" content="サーバーを使わずに、決済まで動かす。同じECサイトをWordPress版と静的サイト版の2つで作った記録。">
+<meta property="og:image" content="https://kiebu119.github.io/kie-portfolio/works/macrobox/img/lp_hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://kiebu119.github.io/kie-portfolio/works/macrobox/">
+<link rel="icon" href="../../favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="192x192" href="../../assets/icon-192.png">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F6F3; --surface:#fff; --ink:#1C1B19; --ink-2:#57534E; --ink-3:#8B857D;
+  --line:#E5E2DC; --accent:#1C1B19;
+  /* 作品側のブランドカラー */
+  --brand:#7E2B36; --brand-deep:#6B222C; --brand-light:#C96A74; --cream:#F4EAEB;
+  --s2:16px; --s3:24px; --s4:40px; --s5:64px; --s6:96px; --s7:140px;
+  --wrap:1080px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:'Zen Kaku Gothic New','Inter',sans-serif;
+  line-height:1.9;font-size:15px;-webkit-font-smoothing:antialiased;}
+body.lang-en{font-family:'Inter','Zen Kaku Gothic New',sans-serif;}
+body.lang-jp .en{display:none!important;}
+body.lang-en .jp{display:none!important;}
+img,video{display:block;max-width:100%;}
+a{color:inherit;text-decoration:none;}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px;}
+
+.hdr{position:fixed;inset:0 0 auto 0;z-index:100;display:flex;align-items:center;justify-content:space-between;
+  padding:14px 24px;background:rgba(247,246,243,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+.hdr .back{font-size:12.5px;font-weight:600;color:var(--ink-2);}
+.hdr .back:hover{color:var(--ink);}
+.lang{display:flex;border:1px solid var(--ink);border-radius:999px;overflow:hidden;}
+.lang button{border:none;background:transparent;color:var(--ink);font-family:inherit;font-weight:600;
+  font-size:11px;padding:6px 14px;cursor:pointer;letter-spacing:.04em;}
+.lang button.on{background:var(--ink);color:#fff;}
+
+.hero{padding:150px 0 var(--s6);}
+.tagrow{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:var(--s3);}
+.tag{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  border:1px solid var(--line);background:var(--surface);padding:5px 12px;border-radius:999px;color:var(--ink-2);}
+.hero h1{font-size:clamp(30px,6vw,56px);font-weight:800;line-height:1.3;letter-spacing:-.01em;margin-bottom:var(--s3);}
+.hero .sub{font-size:clamp(15px,2vw,18px);color:var(--ink-2);max-width:640px;line-height:1.95;}
+.hero-visual{margin-top:var(--s5);border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--surface);}
+
+.meta{display:grid;grid-template-columns:1fr;border-top:1px solid var(--line);margin-top:var(--s5);}
+.meta div{display:grid;grid-template-columns:110px 1fr;gap:16px;padding:16px 2px;border-bottom:1px solid var(--line);}
+.meta dt{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);}
+.meta dd{font-size:14px;color:var(--ink-2);}
+
+section{padding:var(--s6) 0;border-top:1px solid var(--line);}
+.num{font-family:'Inter',sans-serif;font-size:12px;font-weight:700;letter-spacing:.22em;color:var(--ink-3);margin-bottom:var(--s2);}
+h2{font-size:clamp(21px,3.4vw,30px);font-weight:800;line-height:1.5;margin-bottom:var(--s3);}
+h3{font-size:16.5px;font-weight:700;margin-bottom:10px;line-height:1.6;}
+p{font-size:15px;color:var(--ink-2);line-height:1.95;max-width:720px;}
+p + p{margin-top:var(--s2);}
+.lead{font-size:16.5px;color:var(--ink);font-weight:500;}
+figure{margin-top:var(--s4);}
+figure img,figure video{border-radius:12px;border:1px solid var(--line);background:var(--surface);width:100%;}
+figcaption{font-size:12.5px;color:var(--ink-3);margin-top:10px;line-height:1.7;}
+code{font-family:'Inter',ui-monospace,monospace;font-size:.92em;background:#EDEAE4;padding:2px 6px;border-radius:4px;color:var(--ink);}
+
+.cards{display:grid;gap:16px;margin-top:var(--s4);}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:26px;}
+.card .k{font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--ink-3);text-transform:uppercase;margin-bottom:10px;}
+.card p{font-size:14px;}
+
+/* 比較テーブル */
+.cmp{margin-top:var(--s4);border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface);}
+.cmp table{width:100%;border-collapse:collapse;}
+.cmp th,.cmp td{padding:14px 18px;text-align:left;font-size:14px;border-bottom:1px solid var(--line);}
+.cmp thead th{font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-3);background:#FBFAF8;}
+.cmp td:first-child{color:var(--ink);font-weight:600;width:34%;}
+.cmp td{color:var(--ink-2);}
+.cmp tr:last-child td{border-bottom:none;}
+.cmp .hl{color:var(--brand);font-weight:700;}
+
+.strategy{background:var(--brand);color:#fff;border-radius:16px;padding:34px 28px;margin-top:var(--s4);}
+.strategy .k{font-size:11px;font-weight:700;letter-spacing:.18em;color:#E9C6CA;margin-bottom:14px;}
+.strategy p{color:#F4E4E6;font-size:15px;max-width:660px;}
+.strategy .usp{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;}
+.strategy .usp span{font-size:13px;font-weight:700;border:1px solid #A05460;border-radius:999px;padding:8px 16px;}
+.strategy .usp span.hl{background:#fff;color:var(--brand);border-color:#fff;}
+
+.copybox{background:var(--ink);border-radius:16px;padding:52px 28px;margin-top:var(--s4);text-align:center;}
+.copybox .jpcopy{font-size:clamp(22px,4.2vw,34px);font-weight:800;line-height:1.6;color:#fff;}
+.copybox .small{font-size:14px;color:#9C948A;margin-bottom:18px;}
+
+.shots{display:grid;gap:16px;margin-top:var(--s4);}
+.shot{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface);}
+.shot img{border:none;border-radius:0;}
+.shot .cap{font-size:12px;color:var(--ink-3);padding:10px 14px;border-top:1px solid var(--line);}
+
+.sp{display:grid;gap:16px;margin-top:var(--s4);justify-items:center;}
+.sp figure{margin:0;max-width:280px;}
+
+.learn{display:grid;gap:14px;margin-top:var(--s4);}
+.learn div{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--brand);border-radius:10px;padding:22px 24px;}
+.learn h3{margin-bottom:8px;}
+.learn p{font-size:14px;}
+
+.cta-sec{background:var(--ink);color:#fff;border-top:none;}
+.cta-sec h2{color:#fff;}
+.cta-sec p{color:#B8B3AC;}
+.cta-btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:var(--s4);}
+.btn{display:inline-block;font-size:14.5px;font-weight:700;padding:16px 30px;border-radius:999px;transition:.2s;}
+.btn.primary{background:#fff;color:var(--ink);}
+.btn.primary:hover{transform:translateY(-2px);}
+.btn.ghost{border:1px solid #4A4641;color:#fff;}
+.btn.ghost:hover{border-color:#fff;}
+.cta-note{font-size:12.5px;color:#8B857D;margin-top:20px;}
+
+footer{padding:var(--s4) 0 var(--s5);font-size:12px;color:var(--ink-3);text-align:center;line-height:1.9;}
+
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease;}
+.rv.in{opacity:1;transform:none;}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1!important;transform:none!important;transition:none!important;}html{scroll-behavior:auto;}}
+
+@media (min-width:820px){
+  body{font-size:16px;}
+  .hdr{padding:16px 40px;}
+  .wrap{padding:0 40px;}
+  .hero{padding:190px 0 var(--s7);}
+  section{padding:var(--s7) 0;}
+  .meta{grid-template-columns:repeat(2,1fr);column-gap:48px;}
+  .cards{grid-template-columns:repeat(3,1fr);}
+  .shots{grid-template-columns:1fr 1fr;}
+  .sp{grid-template-columns:1fr 1fr;}
+  .strategy{padding:56px 48px;}
+  .copybox{padding:88px 40px;}
+  p{font-size:16px;}
+}
+</style>
+</head>
+<body class="lang-jp">
+
+<header class="hdr">
+  <a class="back" href="../../index.html"><span class="jp">← Works に戻る</span><span class="en">← Back to Works</span></a>
+  <div class="lang">
+    <button id="bjp" class="on" onclick="setLang('jp')">JP</button>
+    <button id="ben" onclick="setLang('en')">EN</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="wrap">
+    <div class="tagrow rv">
+      <span class="tag">E-commerce</span><span class="tag">Static Site</span>
+      <span class="tag">Stripe</span><span class="tag">Analytics</span><span class="tag">Coding</span>
+    </div>
+    <h1 class="jp rv">サーバーを使わずに、<br>決済まで動かす。</h1>
+    <h1 class="en rv">No server.<br>It still takes payments.</h1>
+    <p class="sub jp rv">冷凍ミール宅配「MACRO BOX」を、WordPressを使わずに一から作り直しました。デザイン・コピー・商品データはWordPress版とまったく同じ。<b>違うのは実装だけ</b>なので、2つを並べると技術の差だけが比較できます。Stripeでの決済と、GA4／GTM／Clarityでの計測まで実際に動いています。</p>
+    <p class="sub en rv">I rebuilt MACRO BOX, a frozen meal subscription, without WordPress. The design, copy and product data are identical to the WordPress version — <b>only the implementation differs</b> — so the two can be compared on technology alone. Payments run through Stripe, and behaviour is measured with GA4, GTM and Clarity.</p>
+    <figure class="hero-visual rv"><img src="img/lp_hero.jpg" alt="MACRO BOX のファーストビュー / The hero section of the site"></figure>
+    <dl class="meta rv">
+      <div><dt>Role</dt><dd><span class="jp">サービス設計・UIデザイン・実装・決済・計測設計</span><span class="en">Service design, UI, front-end, payments, analytics</span></dd></div>
+      <div><dt>Deliverables</dt><dd><span class="jp">静的サイト56ページ／サイトジェネレーター／決済関数／計測実装</span><span class="en">56-page static site / site generator / checkout function / analytics</span></dd></div>
+      <div><dt>Tools</dt><dd>Python, HTML / CSS / JavaScript, Stripe, Netlify Functions, GTM, GA4, Clarity</dd></div>
+      <div><dt>Type</dt><dd><span class="jp">コンセプトプロジェクト（架空ブランド）</span><span class="en">Concept project (fictional brand)</span></dd></div>
+    </dl>
+  </div>
+</div>
+
+<!-- 01 CHALLENGE -->
+<section>
+  <div class="wrap">
+    <div class="num rv">01 — CHALLENGE</div>
+    <h2 class="jp rv">同じサイトを、<br>違う技術で作れるか</h2>
+    <h2 class="en rv">Could the same site be built<br>with a different stack?</h2>
+    <p class="lead jp rv">最初にWordPress＋WooCommerceで作ったMACRO BOXは、フォルダごと467MBありました。48品の商品写真が530ファイルに増え、動くのにPHPとデータベースが要る。「このサイトに、本当にそこまで必要だろうか」というのが出発点です。</p>
+    <p class="lead en rv">The first version of MACRO BOX, built on WordPress and WooCommerce, weighed 467MB. Forty-eight product photos had multiplied into 530 files, and it needed PHP and a database just to run. The question was simple: does this site actually require all of that?</p>
+    <p class="jp rv">ただ、作りはじめてすぐに、本当の課題は容量ではないと分かりました。<b>静的サイトで、そもそも決済ができるのか。</b>ここが分かっていませんでした。</p>
+    <p class="en rv">It became clear early on that size wasn't the real question. <b>Can a static site take payments at all?</b> That was the part I didn't know.</p>
+  </div>
+</section>
+
+<!-- 02 INSIGHT -->
+<section>
+  <div class="wrap">
+    <div class="num rv">02 — INSIGHT</div>
+    <h2 class="jp rv">金額だけは、<br>ブラウザに決めさせられない</h2>
+    <h2 class="en rv">The one thing the browser<br>can't be trusted with: the price</h2>
+    <p class="jp rv">カートも合計金額もブラウザの中にあります。ブラウザの中にあるものは、見ている人が開発者ツールで自由に書き換えられます。合計を <code>1</code> にすれば、¥7,062のBOXが¥1で買えてしまう。</p>
+    <p class="en rv">The cart and the total live in the browser — and anything in the browser can be rewritten from DevTools. Set the total to <code>1</code> and a ¥7,062 box costs one yen.</p>
+    <p class="jp rv">なので、決済のときだけサーバーが必要になります。<b>サーバーレス関数を1本</b>置き、ブラウザからはSKUと個数だけを送って、金額はそこでゼロから計算し直しています。ブラウザが計算した金額とは照合すらしません。見る必要がないからです。</p>
+    <p class="en rv">So checkout — and only checkout — needs a server. I added <b>a single serverless function</b>: the browser sends SKUs and quantities, nothing else, and the amount is recalculated there from scratch. The browser's figure is never even compared against it. There's no reason to look at it.</p>
+    <figure class="rv"><img src="img/dia_checkout.jpg" alt="決済の流れ：ブラウザ → サーバーレス関数 → Stripe / How checkout works">
+      <figcaption><span class="jp">送るのは「事実」（SKUと個数）だけ。「判断」（いくらか）はサーバー側でやる。</span><span class="en">The browser sends facts — SKUs and quantities. The judgement — what it costs — happens on the server.</span></figcaption></figure>
+    <div class="cards">
+      <div class="card rv"><div class="k">Check 01</div><h3 class="jp">実在する商品か</h3><h3 class="en">Does the product exist?</h3><p class="jp">存在しないSKUを送りつけられても通さない。</p><p class="en">A fabricated SKU never reaches Stripe.</p></div>
+      <div class="card rv"><div class="k">Check 02</div><h3 class="jp">1BOX＝1プランか</h3><h3 class="en">One plan per box?</h3><p class="jp">プランごとに単価が違うため、混在すると割引計算が成立しない。</p><p class="en">Plans have different unit prices, so mixing them breaks the discount logic.</p></div>
+      <div class="card rv"><div class="k">Check 03</div><h3 class="jp">正規のBOXサイズか</h3><h3 class="en">A valid box size?</h3><p class="jp">6 / 8 / 10 / 20食のいずれかでなければ受け付けない。</p><p class="en">Only 6, 8, 10 or 20 meals are accepted.</p></div>
+    </div>
+    <div class="strategy rv">
+      <div class="k">RESULT — 攻撃パターンのテスト / ATTACK TESTS</div>
+      <p class="jp">偽のSKU、プラン混在、7食、個数マイナス — すべて関数の手前で止まりました。</p>
+      <p class="en">Fake SKUs, mixed plans, seven meals, negative quantities — every one was rejected before reaching Stripe.</p>
+      <div class="usp">
+        <span class="hl">偽SKU ⛔</span><span class="hl">プラン混在 ⛔</span><span class="hl">7食 ⛔</span><span class="hl">個数 −6 ⛔</span><span>6食・定期便 ✅ ¥1,062/食</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 BUILD -->
+<section>
+  <div class="wrap">
+    <div class="num rv">03 — BUILD</div>
+    <h2 class="jp rv">56ページを、<br>Pythonで組み立てる</h2>
+    <h2 class="en rv">56 pages,<br>assembled by Python</h2>
+    <p class="jp rv">WordPressはアクセスのたびにPHPがページを組み立てます。ここでは同じものを、<b>作るときに1回だけ</b>組み立ててHTMLとして書き出しました。商品マスタを直して <code>python3 build.py</code> を実行すると、56ページが数秒で再生成されます。</p>
+    <p class="en rv">WordPress assembles a page on every request. Here the same pages are assembled <b>once, at build time</b>, and written out as HTML. Edit the product data, run <code>python3 build.py</code>, and all 56 pages regenerate in seconds.</p>
+    <div class="cmp rv">
+      <table>
+        <thead><tr><th></th><th>WordPress版 / WordPress</th><th>静的サイト版 / Static</th></tr></thead>
+        <tbody>
+          <tr><td><span class="jp">ページの作られ方</span><span class="en">How pages are made</span></td><td><span class="jp">アクセスのたびにPHPが組み立て</span><span class="en">PHP builds on every request</span></td><td><span class="jp">作るときに1回だけ</span><span class="en">Once, at build time</span></td></tr>
+          <tr><td><span class="jp">商品データ</span><span class="en">Product data</span></td><td>MySQL</td><td><code>products.json</code>（18KB）</td></tr>
+          <tr><td><span class="jp">カート</span><span class="en">Cart</span></td><td>WooCommerce</td><td><span class="jp">自作JS＋localStorage</span><span class="en">Own JS + localStorage</span></td></tr>
+          <tr><td><span class="jp">必要なもの</span><span class="en">Requirements</span></td><td>PHP・MySQL・WordPress</td><td><span class="jp">なし（HTMLを置ける場所だけ）</span><span class="en">None — just somewhere to put HTML</span></td></tr>
+          <tr><td><span class="jp">サイズ</span><span class="en">Size</span></td><td>467MB</td><td class="hl">9.5MB</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <figure class="rv"><img src="img/lp_menu.jpg" alt="メニュー一覧ページ / The menu listing page">
+      <figcaption><span class="jp">全48品を1ページに。WordPress版は1ページ20品・全3ページだった。同じ設計でも、技術が変わると最適な形が変わる。</span><span class="en">All 48 items on a single page. The WordPress version paginated at 20. The same design finds a different optimum on a different stack.</span></figcaption></figure>
+  </div>
+</section>
+
+<!-- 04 RULE -->
+<section>
+  <div class="wrap">
+    <div class="num rv">04 — RULES IN CODE</div>
+    <h2 class="jp rv">FAQに書くのではなく、<br>実際に止める</h2>
+    <h2 class="en rv">Not explained in an FAQ —<br>actually enforced</h2>
+    <p class="jp rv">「1つのBOXに複数プランは混ぜられません」というルールがあります。WordPress版ではFAQに文章で書いていましたが、こちらでは<b>コードで効かせました。</b>違うプランを入れようとすると、その場で止まって理由が出ます。</p>
+    <p class="en rv">"You can't mix plans in one box" is a rule of the service. In the WordPress version it lived in the FAQ as prose; here it's <b>enforced in code</b> — try to add a meal from another plan and it stops, with the reason.</p>
+    <p class="jp rv">BOX進捗バーも同じ考え方です。6食で終わりにせず、次のサイズまで案内します。<b>進捗の表示が、そのままBOX割の説明になる</b>ようにしました。「あと2食で8食BOX（5%OFF）になります」と出ることで、価格表を読ませずに割引を理解してもらえます。</p>
+    <p class="en rv">The progress bar works the same way. It doesn't stop at six — it points to the next size, so <b>the progress display doubles as the explanation of the discount</b>. "Two more for an 8-meal box (5% off)" teaches the pricing without a price table.</p>
+    <figure class="rv"><img src="img/lp_box.jpg" alt="あなたのBOX画面 / The box page with progress bar and price breakdown">
+      <figcaption><span class="jp">1食あたりを「商品代＋送料」に分解して表示。送料を隠さないほうが、あとで不信につながらない。</span><span class="en">The per-meal price is broken into product cost and shipping. Hiding delivery costs only creates distrust later.</span></figcaption></figure>
+  </div>
+</section>
+
+<!-- 05 HONESTY -->
+<section>
+  <div class="wrap">
+    <div class="num rv">05 — HONESTY IN DETAIL</div>
+    <h2 class="jp rv">写真と中身を、<br>ズラさない</h2>
+    <h2 class="en rv">What you see is<br>what goes in the box</h2>
+    <p class="jp rv">トップの「おすすめ6食BOX」には、実際にBOXへ入る6品のサムネイルを並べています。当たり前に見えますが、ここは<b>表示側（Python）と動作側（JavaScript）が別のコード</b>なので、放っておくとズレます。</p>
+    <p class="en rv">The starter box on the home page shows thumbnails of the six meals that actually go in. Obvious as that sounds, <b>the display is Python and the behaviour is JavaScript</b> — two separate pieces of code that will drift apart if left alone.</p>
+    <p class="jp rv">両方に同じ選定ロジック（人気を優先し、残りはたんぱく質量の多い順）を書き、<b>3プランとも一致することをプログラムで照合</b>しました。実装より先にコピーを書いていたら、コードが持っていない選定基準を謳ってしまうところでした。</p>
+    <p class="en rv">I wrote the same selection logic into both — popular items first, then by protein — and <b>verified programmatically that all three plans match</b>. Had the copy been written before the code, the page would have claimed a selection rule the code didn't have.</p>
+    <figure class="rv"><img src="img/lp_starter.jpg" alt="おすすめ6食BOXのセクション / The starter box section">
+      <figcaption><span class="jp">SHAPE・KEEP・BUILD それぞれ一致を確認。表示している6枚＝ボタンを押したときに入る6品。</span><span class="en">Verified for SHAPE, KEEP and BUILD: the six thumbnails are the six meals the button adds.</span></figcaption></figure>
+  </div>
+</section>
+
+<!-- 06 MEASURE -->
+<section>
+  <div class="wrap">
+    <div class="num rv">06 — ANALYTICS</div>
+    <h2 class="jp rv">測れる状態にして<br>渡すところまで</h2>
+    <h2 class="en rv">Handing it over<br>ready to be measured</h2>
+    <p class="jp rv">サイトに入れたのは<b>GTMのコード1つだけ</b>です。GA4もClarityも、GTMの管理画面から追加しています。実際、Clarityを足したときにサイトのコードは1文字も触っていません。</p>
+    <p class="en rv">Only <b>one snippet</b> lives in the site: Google Tag Manager. GA4 and Clarity are added from the GTM dashboard — when Clarity went in, not a single character of site code changed.</p>
+    <figure class="rv"><img src="img/dia_tracking.jpg" alt="計測の流れ：サイト → dataLayer → GTM → GA4 / Clarity">
+      <figcaption><span class="jp">GA4は「どこで落ちたか」を数で、Clarityは「なぜ落ちたか」を録画で見せる。両方あって初めて改善が始まる。</span><span class="en">GA4 counts where people drop off; Clarity shows why. Improvement needs both.</span></figcaption></figure>
+    <p class="jp rv">ECで意味のある3つのイベント（<code>add_to_cart</code> / <code>begin_checkout</code> / <code>purchase</code>）を <code>dataLayer</code> 経由でGTMに渡しています。<code>purchase</code> には <code>transaction_id</code> と、定価ではなく<b>実際に請求された金額</b>（定期便の初回は半額）を送りました。定価を送ると売上が水増しになるためです。</p>
+    <p class="en rv">Three commerce events — <code>add_to_cart</code>, <code>begin_checkout</code> and <code>purchase</code> — are pushed to GTM through the <code>dataLayer</code>. The purchase event carries a <code>transaction_id</code> and <b>the amount actually charged</b> rather than the list price, since the first subscription box is half off. Sending list price would inflate revenue.</p>
+    <p class="jp rv">このサイトで一番測る価値があるのは、<b>「6食ちょうどにしないと金額が出ない」という仕様が親切なのか不親切なのか</b>です。自分で決めた設計を、自分で検証できる状態にしました。</p>
+    <p class="en rv">The most interesting thing to measure here is whether <b>"no price until exactly six meals" helps or hinders</b> — a design decision I made, now testable against real behaviour.</p>
+  </div>
+</section>
+
+<!-- 07 RESPONSIVE -->
+<section>
+  <div class="wrap">
+    <div class="num rv">07 — RESPONSIVE &amp; QA</div>
+    <h2 class="jp rv">「左右がブレる」の<br>原因は1単語だった</h2>
+    <h2 class="en rv">The page wobbled sideways.<br>One word was doing it.</h2>
+    <p class="jp rv">レビューで「スマホで左右にブレる」と指摘を受けました。調べると、冷凍庫サイズを4列で並べたブロックで <code>STACKABLE</code> という1語が375px幅で縮まず、<b>23pxはみ出して</b>ページ全体に横スクロールを発生させていました。</p>
+    <p class="en rv">A reviewer reported the page wobbling horizontally on mobile. The cause: in a four-column block of freezer dimensions, the single word <code>STACKABLE</code> wouldn't shrink at 375px and <b>overflowed by 23 pixels</b>, giving the whole page a horizontal scroll.</p>
+    <p class="jp rv">SPでは2列に変更し、直したあと<b>全ページ × 6サイズ（320〜768px）で総当たり検査</b>を書いて、はみ出しがゼロであることを確認しています。同じ原因で、レビュー画像では見出しの左端が1文字切れていました。</p>
+    <p class="en rv">Two columns on mobile fixed it, and I wrote a sweep across <b>every page at six widths (320–768px)</b> to confirm zero overflow. The same bug had been clipping the first character of a heading in the review screenshots.</p>
+    <div class="sp">
+      <figure class="rv"><img src="img/sp_hero.jpg" alt="スマートフォンでのファーストビュー / The hero on mobile"></figure>
+      <figure class="rv"><img src="img/sp_box.jpg" alt="スマートフォンでのBOX画面 / The box page on mobile"></figure>
+    </div>
+    <p class="jp rv" style="margin-top:var(--s4)">SPでは動画の暗さを横方向ではなく縦方向にかけ直しています。横に逃げ場がないぶん、文字の後ろだけを暗くする手が使えないためです。</p>
+    <p class="en rv" style="margin-top:var(--s4)">On mobile the video overlay runs vertically rather than horizontally — there's no room to darken only the side the text sits on.</p>
+  </div>
+</section>
+
+<!-- 08 LEARNED -->
+<section>
+  <div class="wrap">
+    <div class="num rv">08 — WHAT I LEARNED</div>
+    <h2 class="jp rv">この制作で<br>持ち帰ったこと</h2>
+    <h2 class="en rv">What I took away</h2>
+    <div class="learn">
+      <div class="rv"><h3 class="jp">静的サイトでも、決済だけはサーバーが要る</h3><h3 class="en">Even a static site needs a server — for checkout</h3>
+        <p class="jp">Stripeの制約ではなく、ECの設計として必然でした。「静的サイトで全部できる」と思っていたので、ここが一番の発見です。</p>
+        <p class="en">Not a Stripe limitation — a structural fact of e-commerce. I had assumed a static site could do everything; this was the discovery.</p></div>
+      <div class="rv"><h3 class="jp">同じ式が2か所にあってよい場合がある</h3><h3 class="en">Sometimes duplicated logic is correct</h3>
+        <p class="jp">価格計算はブラウザとサーバーの両方にあります。片方が壊れても、もう片方は正しい。共通化すると同時に壊れます。「画面用」と「請求用」を意図的に切り離しました。</p>
+        <p class="en">The pricing formula exists in both browser and server. Shared, a bug breaks both at once; separated, one stays correct. Display and billing were split on purpose.</p></div>
+      <div class="rv"><h3 class="jp">「自分に見えている」は「公開されている」ではない</h3><h3 class="en">"I can see it" is not "it's published"</h3>
+        <p class="jp">公開したつもりのサイトが、実はログイン中の自分にしか見えていませんでした。確認はシークレットウィンドウで、が習慣になりました。</p>
+        <p class="en">A site I believed was live was visible only to my logged-in self. Checking in a private window is now a habit.</p></div>
+      <div class="rv"><h3 class="jp">実装を先に、コピーは後に</h3><h3 class="en">Build first, then write the copy</h3>
+        <p class="jp">おすすめ6食の選定基準を、コードが持っていないのに文章で謳うところでした。先に実装を直してから書きました。</p>
+        <p class="en">I nearly claimed a selection rule the code didn't implement. I changed the code first, then wrote the sentence.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-sec">
+  <div class="wrap">
+    <h2 class="jp rv">ECサイトの制作・<br>計測導入も承っています</h2>
+    <h2 class="en rv">Building or measuring<br>an online store?</h2>
+    <p class="jp rv">デザインだけでなく、決済の接続、GA4・GTM・Clarityの設計と設置、公開まで対応できます。WordPress／Shopify／静的サイトのどれが合うかというところからご相談いただけます。</p>
+    <p class="en rv">Beyond design: payment integration, GA4 / GTM / Clarity setup, and launch. I'm happy to start from the question of which stack — WordPress, Shopify or static — actually fits the project.</p>
+    <div class="cta-btns">
+      <a class="btn primary" href="https://merry-sopapillas-bc343d.netlify.app" target="_blank" rel="noopener"><span class="jp">公開ページを見る →</span><span class="en">View the live site →</span></a>
+      <a class="btn ghost" href="../../index.html#works"><span class="jp">他の制作物を見る</span><span class="en">See other work</span></a>
+      <a class="btn ghost" href="../../index.html#contact"><span class="jp">お問い合わせ</span><span class="en">Get in touch</span></a>
+    </div>
+    <p class="cta-note jp">※ 決済はStripeのテストモードです。実際の請求は発生しません。</p>
+    <p class="cta-note en">Checkout runs in Stripe test mode — no real charges are made.</p>
+  </div>
+</section>
+
+<footer>
+  <div><span class="jp">「MACRO BOX」はデザイン学習・提案を目的としたコンセプトプロジェクトです。実在の企業・商品とは関係ありません。商品写真はすべてAI生成です。</span>
+       <span class="en">"MACRO BOX" is a concept project created for design purposes and is not affiliated with any real company or product. All food photography is AI-generated.</span></div>
+</footer>
+
+<script>
+function setLang(l){
+  document.body.className='lang-'+l;
+  document.documentElement.lang=(l==='jp')?'ja':'en';
+  bjp.classList.toggle('on',l==='jp');
+  ben.classList.toggle('on',l==='en');
+  try{localStorage.setItem('kie_lang',l);}catch(e){}
+}
+try{var s=localStorage.getItem('kie_lang'); if(s) setLang(s);}catch(e){}
+var io=new IntersectionObserver(function(es){
+  es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+},{threshold:.1,rootMargin:'0px 0px -30px'});
+document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
+</script>
+</body>
+</html>
