@@ -21,7 +21,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Shippori+Mincho+B1:wght@700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
   /* ポートフォリオ側のトーン（作品の色に引っ張られない中立なベース） */
@@ -179,6 +179,39 @@ footer{padding:var(--s4) 0 var(--s5);font-size:12px;color:var(--ink-3);text-alig
   .reelvid{margin:0;}
   p{font-size:16px;}
 }
+
+/* =========================================================
+   エディトリアル統一（トップページと同じトーンに上書き）
+========================================================= */
+:root{--bg:#F3EFE6;--surface:#FBF9F4;--ink:#171512;--ink-2:#4F4A43;--ink-3:#8A8277;--line:#D8D1C3;--ed-accent:#C25E45;
+  --ed-jp:'Shippori Mincho B1',serif;--ed-serif:'Instrument Serif',serif;}
+body{background:var(--bg);}
+.hdr{background:rgba(243,239,230,.9);border-bottom:1px solid var(--ink);}
+.hdr .back{font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);}
+.hdr .back:hover{color:var(--ed-accent);}
+.lang button.on{background:var(--ink);color:var(--bg);}
+.tag{font-family:'Inter',sans-serif;border:1px solid var(--ink);border-radius:0;background:transparent;color:var(--ink-2);}
+.hero h1.jp,h2.jp,.cta-sec h2.jp{font-family:var(--ed-jp);font-weight:800;letter-spacing:-.01em;}
+.hero h1.en,h2.en,.cta-sec h2.en{font-family:var(--ed-serif);font-weight:400;letter-spacing:-.01em;}
+.hero h1.en{font-style:italic;font-size:clamp(38px,7vw,72px);line-height:1.08;}
+h2.en{font-size:clamp(28px,4.4vw,44px);line-height:1.15;}
+.hero-visual,figure img,figure video,.shot,.card,.learn div,.stat > div,.chara div,.persona,.reelvid{border-radius:0!important;}
+.hero-visual,figure img,figure video,.shot{border:1px solid var(--ink)!important;}
+.shot img{border:none!important;}
+.card,.learn div,.stat > div{background:var(--surface);}
+.meta{border-top:1px solid var(--ink);}
+.meta dt{font-family:'Inter',sans-serif;}
+section{border-top:1px solid var(--ink);}
+.num{font-family:var(--ed-serif);font-style:italic;font-weight:400;font-size:24px;letter-spacing:0;color:var(--ed-accent);text-transform:none;}
+.lead{color:var(--ink);}
+.learn div{border-left:3px solid var(--ed-accent);}
+.card .k{color:var(--ed-accent);}
+.cta-sec{background:var(--ink);}
+.cta-sec h2{color:var(--bg);}
+.btn{border-radius:999px;}
+.btn.primary{background:var(--bg);color:var(--ink);}
+.btn.primary:hover{background:var(--ed-accent);color:#fff;transform:none;}
+footer{font-family:var(--ed-serif);font-style:italic;font-size:14px;}
 </style>
 </head>
 <body class="lang-jp">
